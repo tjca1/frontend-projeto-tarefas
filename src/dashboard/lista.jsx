@@ -3,14 +3,13 @@ import Butao from '../template/iButao'
 
 export default props =>{
     const lista = props.lista || []
-    console.log('=============================================='+JSON.stringify( props.lista))
     const renderRows = () =>{
         return lista.map(tarefa =>(
             <tr key={tarefa._id}>
                 <td className={tarefa.done ? 'classDone' : ''} >{tarefa.description}</td>
-                <td><Butao style='success' icon='check'   onClick={() => props.handleDone(tarefa)}/></td>
-                <td><Butao style='warning' icon='undo'    onClick={() => props.handlePending(tarefa)}/></td>
-                <td><Butao style='danger' icon='trash-o'  onClick={() => props.handleRemove(tarefa)}/></td>
+                <td><Butao style='success' icon='check'   onClick={() => props.handleDone(tarefa)} hide={tarefa.done}  /></td>
+                <td><Butao style='warning' icon='undo'    onClick={() => props.handlePending(tarefa)} hide={!tarefa.done}/></td>
+                <td><Butao style='danger' icon='trash-o'  onClick={() => props.handleRemove(tarefa)} hide={!tarefa.done}/></td>
                 
             </tr>
         ))

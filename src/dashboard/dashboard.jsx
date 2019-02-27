@@ -31,19 +31,24 @@ export default class DashBoard extends React.Component{
 
     atualiza(description = '') {
         const search = description ? `&description__regex=/${description}/` : ''
-        //axios.get(`${url}?sort=-createdAt${search}`)
+        
+        console.log('======================================>>>>>>>>>>>>>>'+description)
         axios.get(`${url}?sort=-createdAt`)
             .then(resp => this.setState({...this.state, description, lista: resp.data}))
+            
     }
 
     handleAdd() {
         const description = this.state.description
         axios.post(url, { description })
-            .then(resp => this.atualiza())
+            .then(resp => this.atualiza(this.state.description))
+            this.setState({...this.state, description:''})
+            
     }
 
+
     handleChange(e){
-        var d = e.target.value
+        const d = e.target.value
         this.setState({...this.state, description:d})
     }
 
@@ -73,12 +78,12 @@ export default class DashBoard extends React.Component{
                 <Cabecalho name='Tarefas' small='Cadastro'/>
                 <Form 
                 description={this.state.description}
+                handleChange={this.handleChange} 
                 handleAdd={this.handleAdd}
 
                 name='Tarefas' small='Cadastro'/>
                 <Lista lista={this.state.lista} 
                     handleRemove={this.handleRemove}
-                    handleChange={this.handleChange} 
                     handleDone={this.handleDone} 
                     handlePending={this.handlePending} 
                 
