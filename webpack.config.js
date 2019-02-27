@@ -2,17 +2,20 @@ const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
-    entry: './scripts/index.jsx',
+    entry: './src/index.jsx',
     output:{
-        path: __dirname + '/public',
-        filename: './bundle.js'
+        path: __dirname + '/public',  
+        filename: './app.js'
     },
     devServer: {
         port: 81,
         contentBase: './public'
     },
     resolve: {
-        extensions:['','.js','.jsx','.css']
+        extensions:['','.js','.jsx','.css'],
+        alias:{
+            modules:__dirname + '/node_modules'
+        }
     },
     plugins: [
            new ExtractTextPlugin('app.css')

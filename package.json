@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "\"# frontend-projeto-tarefas\"",
   "main": "index.jsx",
-    "scripts": {
-      "dev": "webpack-dev-server --progress --colors --inline --hot"
-    },
+  "scripts": {
+    "dev": "webpack-dev-server --progress --colors --inline --hot",
+    "production": "webpack --progress -p"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tjca1/frontend-projeto-tarefas.git"
