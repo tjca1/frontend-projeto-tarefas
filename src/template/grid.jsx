@@ -6,9 +6,9 @@ export default class Grid extends Component {
         let classes = ''
 
         if(cols[0]) classes += `col-xs-${cols[0]}` // telas celular
-        if(cols[1]) classes += ` col-sm-${cols[1]}` // telas celular com telas maiores
-        if(cols[2]) classes += ` col-md-${cols[2]}` // telas aparelhos e monitores medios
-        if(cols[3]) classes += ` col-lg-${cols[3]}` // telas aparelhos e monitores maiores
+        if(cols[1]) classes += `col-sm-${cols[1]}` // telas celular com telas maiores
+        if(cols[2]) classes += `col-md-${cols[2]}` // telas aparelhos e monitores medios
+        if(cols[3]) classes += `col-lg-${cols[3]}` // telas aparelhos e monitores maiores
 
         return classes 
     }

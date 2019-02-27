@@ -20,8 +20,10 @@ export default class DashBoard extends React.Component{
         this.handleRemove = this.handleRemove.bind(this)
         this.handleDone = this.handleDone.bind(this)
         this.handlePending = this.handlePending.bind(this)
+        this.handlePesquisar = this.handlePesquisar.bind(this)
+        this.handleLimpar = this.handleLimpar.bind(this)
         
-        
+
 
         this.atualiza()
     }
@@ -31,9 +33,7 @@ export default class DashBoard extends React.Component{
 
     atualiza(description = '') {
         const search = description ? `&description__regex=/${description}/` : ''
-        
-        console.log('======================================>>>>>>>>>>>>>>'+description)
-        axios.get(`${url}?sort=-createdAt`)
+        axios.get(`${url}?sort=-createdAt${search}`)
             .then(resp => this.setState({...this.state, description, lista: resp.data}))
             
     }
@@ -67,10 +67,16 @@ export default class DashBoard extends React.Component{
         .then(resp => this.atualiza(this.state.description))
     }
 
+    handlePesquisar(){
+       this.atualiza(this.state.description)
+    }
+    handleLimpar(){
+        this.atualiza()
+     }
+    
 
 
-
-
+    
     render(){
         return (
             
@@ -80,8 +86,10 @@ export default class DashBoard extends React.Component{
                 description={this.state.description}
                 handleChange={this.handleChange} 
                 handleAdd={this.handleAdd}
-
-                name='Tarefas' small='Cadastro'/>
+                handlePesquisar={this.handlePesquisar}
+                handleLimpar={this.handleLimpar}
+                
+               />
                 <Lista lista={this.state.lista} 
                     handleRemove={this.handleRemove}
                     handleDone={this.handleDone} 
