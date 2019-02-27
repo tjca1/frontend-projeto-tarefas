@@ -1,12 +1,17 @@
 import React from 'react'
+import Butao from '../template/iButao'
 
 export default props =>{
     const lista = props.lista || []
     console.log('=============================================='+JSON.stringify( props.lista))
     const renderRows = () =>{
-        return lista.map(tarefas =>(
-            <tr key={tarefas._id}>
-                <td>{tarefas.description}</td>
+        return lista.map(tarefa =>(
+            <tr key={tarefa._id}>
+                <td className={tarefa.done ? 'classDone' : ''} >{tarefa.description}</td>
+                <td><Butao style='success' icon='check'   onClick={() => props.handleDone(tarefa)}/></td>
+                <td><Butao style='warning' icon='undo'    onClick={() => props.handlePending(tarefa)}/></td>
+                <td><Butao style='danger' icon='trash-o'  onClick={() => props.handleRemove(tarefa)}/></td>
+                
             </tr>
         ))
     }
@@ -16,6 +21,7 @@ export default props =>{
             <thead>
                 <tr>
                     <th>Descrição</th>
+                    <th>Ação</th>
                 </tr>
             </thead>
             <tbody>

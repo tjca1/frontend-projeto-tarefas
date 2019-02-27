@@ -5,6 +5,7 @@ import Form from './formulario'
 import Lista from './lista'
 
 
+
 const url = 'http://localhost:3003/api/todos'
 
 export default class DashBoard extends React.Component{
@@ -16,15 +17,23 @@ export default class DashBoard extends React.Component{
         this.state = { description: '', lista: [] }
         this.handleAdd = this.handleAdd.bind(this)
         this.handleChange = this.handleChange.bind(this)
+        this.handleRemove = this.handleRemove.bind(this)
+        this.handleDone = this.handleDone.bind(this)
+        this.handlePending = this.handlePending.bind(this)
+        
+        
 
         this.atualiza()
     }
 
 
-    atualiza(){
-        axios.get(`${url}?sort=-createdAt`).then((resposta) =>
-         this.setState({...this.state, description:'', lista: resposta.data})
-        )
+    
+
+    atualiza(description = '') {
+        const search = description ? `&description__regex=/${description}/` : ''
+        //axios.get(`${url}?sort=-createdAt${search}`)
+        axios.get(`${url}?sort=-createdAt`)
+            .then(resp => this.setState({...this.state, description, lista: resp.data}))
     }
 
     handleAdd() {
@@ -38,6 +47,23 @@ export default class DashBoard extends React.Component{
         this.setState({...this.state, description:d})
     }
 
+    handleRemove(tarefas){
+        axios.delete(`${url}/${tarefas._id}`)
+        .then(resp => this.atualiza(this.state.description))
+    }
+
+
+     handleDone(tarefa){
+        axios.put(`${url}/${tarefa._id}`, { ...tarefa, done: true })
+            .then(resp => this.atualiza(this.state.description))
+    }
+     handlePending(tarefa){
+        axios.put(`${url}/${tarefa._id}`, { ...tarefa, done: false })
+        .then(resp => this.atualiza(this.state.description))
+    }
+
+
+
 
 
     render(){
@@ -48,9 +74,15 @@ export default class DashBoard extends React.Component{
                 <Form 
                 description={this.state.description}
                 handleAdd={this.handleAdd}
-                handleChange={this.handleChange} 
+
                 name='Tarefas' small='Cadastro'/>
-                <Lista lista={this.state.lista} name='Tarefas' small='Cadastro'/>
+                <Lista lista={this.state.lista} 
+                    handleRemove={this.handleRemove}
+                    handleChange={this.handleChange} 
+                    handleDone={this.handleDone} 
+                    handlePending={this.handlePending} 
+                
+                name='Tarefas' small='Cadastro'/>
 
             </div>
         

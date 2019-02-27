@@ -4,12 +4,14 @@ import IfTest from '../ultils/ultil'
 export default props => (
 
         <IfTest test={!props.hide}>
-             <div>
-                <button className={'btn btn-' + props.style}
+                <form > 
+                <button className={'btn btn-' + props.style} 
                         onClick={props.onClick}>
-                        <i className={ 'fa fa-'+props.icon}/>
+                        <i className={ 'fa fa-'+props.icon}>
+                       
+                        </i>
                 </button>
-            </div>
+                </form>
         </IfTest>
         )
      
