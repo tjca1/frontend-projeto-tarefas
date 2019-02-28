@@ -1,5 +1,5 @@
 import React from 'react'
-import IfTest from '../ultils/ultil'
+import IfTest from '../ultils/ultilCmp'
 
 export default props => (
 
